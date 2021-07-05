@@ -1,25 +1,18 @@
-package com.example.springboot;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+package claseuno.springtm.morse.util;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-@RestController
 public class MorseCode {
-
   private static final Map<String, Character> morseCodeDictionary = buildMorseCodeDictionary();
   private static final String MORSECODE_WORD_DELIMITER = "   ";
   private static final String MORSECODE_LETTER_DELIMITER = " ";
 
-  @GetMapping(path = "morse/{message}")
-  public String decodeMorse(@PathVariable String message) {
+  public static String decode(String morseCode) {
     StringBuilder result = new StringBuilder();
-    String[] morseWords = message.split(MORSECODE_WORD_DELIMITER);
+    String[] morseWords = morseCode.split(MORSECODE_WORD_DELIMITER);
     //itera las palabras en codigo morse
     for (Iterator<String> iterator = Arrays.stream(morseWords).iterator(); iterator.hasNext(); ) {
       String morseWord = iterator.next();
@@ -34,7 +27,8 @@ public class MorseCode {
     return result.toString();
   }
 
-  public String decodeWord(String[] morseCodeLetters) {
+
+  private static String decodeWord(String[] morseCodeLetters) {
     StringBuilder stringBuilder = new StringBuilder();
     Arrays.stream(morseCodeLetters).forEach(l -> stringBuilder.append(morseCodeDictionary.get(l)));
     return stringBuilder.toString();

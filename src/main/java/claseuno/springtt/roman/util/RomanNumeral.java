@@ -1,18 +1,8 @@
-package com.example.springboot;
+package claseuno.springtt.roman.util;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+public class RomanNumeral {
 
-import java.util.HashMap;
-
-@RestController
-public class RomanNumerals {
-
-  private HashMap<Integer, Character> decimalRomanMap;
-
-  @GetMapping(path = "roman/{number}")
-  String decimalToRoman(@PathVariable int number) {
+  public static String decimalToRoman(int number) {
     String m[] = {"", "M", "MM", "MMM"};
     String c[] = {"", "C", "CC", "CCC", "CD", "D",
             "DC", "DCC", "DCCC", "CM"};
@@ -21,35 +11,33 @@ public class RomanNumerals {
     String i[] = {"", "I", "II", "III", "IV", "V",
             "VI", "VII", "VIII", "IX"};
 
-    // Converting to roman
     String thousands = m[number / 1000];
     String hundereds = c[(number % 1000) / 100];
     String tens = x[(number % 100) / 10];
     String ones = i[number % 10];
 
-    String ans = thousands + hundereds + tens + ones;
-
-    return ans;
+    return thousands + hundereds + tens + ones;
   }
 
-  int romanToDecimal(String str) {
-    int res = 0;
-    for (int i = 0; i < str.length(); i++) {
-      int s1 = decimalValueofRomanChar(str.charAt(i));
-      if (i + 1 < str.length()) {
-        int s2 = decimalValueofRomanChar(str.charAt(i + 1));
-        if (s1 >= s2) {
-          res = res + s1;
+
+  int romanToDecimal(String romanNumeral) {
+    int decimalNumber = 0;
+    for (int i = 0; i < romanNumeral.length(); i++) {
+      int currentDecimalValue = decimalValueofRomanChar(romanNumeral.charAt(i));
+      if (i + 1 < romanNumeral.length()) {
+        int nextDecimalValue = decimalValueofRomanChar(romanNumeral.charAt(i + 1));
+        if (currentDecimalValue >= nextDecimalValue) {
+          decimalNumber = decimalNumber + currentDecimalValue;
         } else {
-          res = res + s2 - s1;
+          decimalNumber = decimalNumber + nextDecimalValue - currentDecimalValue;
           i++;
         }
       } else {
-        res = res + s1;
+        decimalNumber = decimalNumber + currentDecimalValue;
       }
     }
 
-    return res;
+    return decimalNumber;
   }
 
   int decimalValueofRomanChar(char r) {
@@ -72,5 +60,4 @@ public class RomanNumerals {
         return -1;
     }
   }
-
 }
