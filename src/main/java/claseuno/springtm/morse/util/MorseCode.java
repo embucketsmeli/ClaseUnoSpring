@@ -13,13 +13,9 @@ public class MorseCode {
   public static String decode(String morseCode) {
     StringBuilder result = new StringBuilder();
     String[] morseWords = morseCode.split(MORSECODE_WORD_DELIMITER);
-    //itera las palabras en codigo morse
     for (Iterator<String> iterator = Arrays.stream(morseWords).iterator(); iterator.hasNext(); ) {
       String morseWord = iterator.next();
-      //transforma la palabra de codigo morse a español
-      //concatena la palabra
       result.append(decodeWord(morseWord.split(MORSECODE_LETTER_DELIMITER)));
-      //si hay mas palabras concatena espacio
       if (iterator.hasNext()) {
         result.append(" ");
       }
