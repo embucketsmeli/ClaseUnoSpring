@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("romanNumerals")
 public class RomanNumeralController {
 
-  @GetMapping(path = "decimalToRoman/{romanNumeral}")
-  public String decimalToRomanç(@PathVariable int romanNumeral) {
-    return RomanNumeral.decimalToRoman(romanNumeral);
+  @GetMapping(path = "decimalToRoman/{decimalNumber}")
+  public String decimalToRomanç(@PathVariable int decimalNumber) {
+    return RomanNumeral.decimalToRoman(decimalNumber);
   }
 }
